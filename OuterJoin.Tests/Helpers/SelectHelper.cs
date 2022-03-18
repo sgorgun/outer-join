@@ -1,11 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
-using OuterJoin.Tests.Models;
+using AutocodeDB.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace OuterJoin.Tests.Helpers
+namespace AutocodeDB.Helpers
 {
     internal class SelectHelper
     {
