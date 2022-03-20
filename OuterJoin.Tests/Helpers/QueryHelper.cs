@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,7 +8,7 @@ namespace AutocodeDB.Helpers
 {
     internal static class QueryHelper
     {
-        private const string BlockComments = @"/\*.*\*/";//@"/\*(.*?)\*/";
+        private const string BlockComments = @"/\*.*\*/";
         private const string LineComments = @"--(.*$?)";
         public static string GetQuery(string file)
         {
@@ -29,7 +30,6 @@ namespace AutocodeDB.Helpers
 
         public static string[] GetQueries(string[] files)
         {
-            StreamWriter writer = new StreamWriter("log.txt", true);
             for (int i = 0; i < files.Length; i++)
             {
                 files[i] = GetQuery(files[i]);
@@ -48,6 +48,7 @@ namespace AutocodeDB.Helpers
             return ComposeErrorMessage(query, null, message);
         }
 
+        public static bool IsQueryCorrect(IEnumerable<string> queries, Func<string, bool> isCorrect) => queries.Any(isCorrect);
         public static string RemoveComments(string rawData)
         {
             rawData = Regex.Replace(rawData, LineComments, "", RegexOptions.Multiline);
